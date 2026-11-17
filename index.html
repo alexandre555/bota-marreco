@@ -40,10 +40,31 @@
       <div class="pointer-events-none absolute bottom-[-10rem] right-[-7rem] h-96 w-96 rounded-full bg-emerald-700/20 blur-3xl"></div>
 
       <section class="relative z-10 mx-auto h-full w-full max-w-xl text-center">
-        <header class="absolute inset-x-0 top-[max(1.25rem,env(safe-area-inset-top))]">
-          <p class="mb-3 text-xs font-bold uppercase tracking-[0.35em] text-ink/55 sm:text-sm">Aperte sem moderação</p>
-          <h1 class="font-display text-4xl uppercase leading-none sm:text-6xl">Botão Marreco</h1>
-          <p class="mx-auto mt-3 max-w-sm text-sm font-medium text-ink/60 sm:text-base">Cada toque solta um novo marreco e corta a grasnada anterior.</p>
+        <nav class="absolute inset-x-0 top-[max(.75rem,env(safe-area-inset-top))] flex justify-center gap-2" aria-label="Escolha um animal">
+          <button type="button" data-animal="marreco" aria-label="Selecionar marreco" aria-pressed="true" class="animal-selector relative h-12 w-12 overflow-hidden rounded-full border-2 border-white shadow-md ring-4 ring-emerald-700 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink sm:h-14 sm:w-14">
+            <img src="./assets/animals/marreco.jpg" alt="Marreco" class="h-full w-full object-cover" />
+          </button>
+          <button type="button" data-animal="cabra" aria-label="Selecionar cabra" aria-pressed="false" class="animal-selector relative h-12 w-12 overflow-hidden rounded-full border-2 border-white shadow-md ring-2 ring-ink/15 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink sm:h-14 sm:w-14">
+            <img src="./assets/animals/cabra.jpg" alt="Cabra" class="h-full w-full object-cover" />
+          </button>
+          <button type="button" disabled aria-label="Vaca — em breve" class="relative h-12 w-12 cursor-not-allowed overflow-hidden rounded-full border-2 border-white opacity-45 grayscale shadow-md sm:h-14 sm:w-14">
+            <img src="./assets/animals/vaca.jpg" alt="Vaca" class="h-full w-full object-cover" />
+            <span class="absolute inset-0 grid place-items-center bg-ink/20 text-sm" aria-hidden="true">🔒</span>
+          </button>
+          <button type="button" disabled aria-label="Porco — em breve" class="relative h-12 w-12 cursor-not-allowed overflow-hidden rounded-full border-2 border-white opacity-45 grayscale shadow-md sm:h-14 sm:w-14">
+            <img src="./assets/animals/porco.jpg" alt="Porco" class="h-full w-full object-cover" />
+            <span class="absolute inset-0 grid place-items-center bg-ink/20 text-sm" aria-hidden="true">🔒</span>
+          </button>
+          <button type="button" disabled aria-label="Galo — em breve" class="relative h-12 w-12 cursor-not-allowed overflow-hidden rounded-full border-2 border-white opacity-45 grayscale shadow-md sm:h-14 sm:w-14">
+            <img src="./assets/animals/galo.jpg" alt="Galo" class="h-full w-full object-cover" />
+            <span class="absolute inset-0 grid place-items-center bg-ink/20 text-sm" aria-hidden="true">🔒</span>
+          </button>
+        </nav>
+
+        <header class="absolute inset-x-0 top-[5rem] sm:top-[5.75rem]">
+          <p class="mb-2 text-[10px] font-bold uppercase tracking-[0.35em] text-ink/55 sm:text-xs">Aperte sem moderação</p>
+          <h1 id="pageTitle" class="font-display text-3xl uppercase leading-none sm:text-5xl">Botão Marreco</h1>
+          <p id="pageDescription" class="mx-auto mt-2 hidden max-w-sm text-sm font-medium text-ink/60 min-[380px]:block">Cada toque solta um novo marreco e corta a grasnada anterior.</p>
         </header>
 
         <button
@@ -53,13 +74,8 @@
           class="group absolute left-1/2 top-1/2 grid aspect-square w-[min(58vw,34svh,17rem)] -translate-x-1/2 -translate-y-1/2 touch-manipulation place-items-center overflow-hidden rounded-full border-[10px] border-amber-100 bg-duck shadow-button outline-none transition duration-100 hover:brightness-105 focus-visible:ring-4 focus-visible:ring-emerald-700 focus-visible:ring-offset-4 focus-visible:ring-offset-cream active:translate-y-[calc(-50%+14px)] active:shadow-pressed sm:w-[min(68vw,34svh,17rem)]"
         >
           <span id="rippleLayer" class="pointer-events-none absolute inset-0"></span>
-          <svg class="relative z-10 w-[54%] transition-transform duration-150 group-hover:rotate-[-4deg] group-active:scale-90" viewBox="0 0 220 190" aria-hidden="true">
-            <path d="M35 109c0-43 35-77 78-77 22 0 42 9 56 23 5 5 10 7 18 7h14l-14 13 14 13h-27c-10 0-16 3-21 10-14 21-38 35-65 35-30 0-53-9-53-24z" fill="#fff7df" stroke="#17231d" stroke-width="9" stroke-linejoin="round"/>
-            <path d="M47 116c16 0 21 12 40 12 22 0 31-13 49-13" fill="none" stroke="#17231d" stroke-width="8" stroke-linecap="round"/>
-            <circle cx="137" cy="62" r="7" fill="#17231d"/>
-            <path d="M174 62h27l-14 13 14 13h-27z" fill="#e8732a" stroke="#17231d" stroke-width="7" stroke-linejoin="round"/>
-          </svg>
-          <span class="relative z-10 mt-[-2rem] font-display text-lg uppercase tracking-[0.18em] sm:text-xl">Quack!</span>
+          <img id="centerAnimal" src="./assets/animals/marreco.jpg" alt="Marreco" class="relative z-10 aspect-square w-[58%] rounded-full border-4 border-white/70 object-cover shadow-lg transition-transform duration-150 group-hover:rotate-[-3deg] group-active:scale-90" />
+          <span id="soundLabel" class="relative z-10 mt-[-1.5rem] font-display text-lg uppercase tracking-[0.18em] sm:text-xl">Quack!</span>
         </button>
 
         <div class="absolute bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-1/2 flex -translate-x-1/2 items-center gap-3 whitespace-nowrap rounded-full border border-ink/10 bg-white/55 px-4 py-2 text-xs font-bold uppercase tracking-widest text-ink/55 backdrop-blur-sm">
@@ -70,13 +86,57 @@
     </main>
 
     <script>
+      const animals = {
+        marreco: {
+          name: 'Marreco', image: './assets/animals/marreco.jpg', audio: './assets/marreco.mp3',
+          label: 'Quack!', description: 'Cada toque solta um novo marreco e corta a grasnada anterior.',
+          ready: 'Pronto para grasnar', singular: 'grasnada', plural: 'grasnadas'
+        },
+        cabra: {
+          name: 'Cabra', image: './assets/animals/cabra.jpg', audio: './assets/cabra.mp3',
+          label: 'Mééé!', description: 'Cada toque solta um novo grito e corta o berro anterior.',
+          ready: 'Pronta para berrar', singular: 'berro', plural: 'berros'
+        }
+      };
+
       const button = document.querySelector('#duckButton');
       const counter = document.querySelector('#counter');
       const rippleLayer = document.querySelector('#rippleLayer');
-      const soundUrl = './assets/marreco.mp3';
-      const audio = new Audio(soundUrl);
+      const pageTitle = document.querySelector('#pageTitle');
+      const pageDescription = document.querySelector('#pageDescription');
+      const centerAnimal = document.querySelector('#centerAnimal');
+      const soundLabel = document.querySelector('#soundLabel');
+      const selectors = document.querySelectorAll('.animal-selector');
+      let selectedAnimal = 'marreco';
+      const audio = new Audio(animals[selectedAnimal].audio);
       audio.preload = 'auto';
       let plays = 0;
+
+      function selectAnimal(key) {
+        selectedAnimal = key;
+        const animal = animals[key];
+        audio.pause();
+        audio.src = animal.audio;
+        audio.load();
+        plays = 0;
+        pageTitle.textContent = `Botão ${animal.name}`;
+        document.title = `Botão ${animal.name}`;
+        pageDescription.textContent = animal.description;
+        centerAnimal.src = animal.image;
+        centerAnimal.alt = animal.name;
+        soundLabel.textContent = animal.label;
+        button.setAttribute('aria-label', `Tocar som da ${animal.name.toLowerCase()}`);
+        counter.textContent = animal.ready;
+
+        selectors.forEach((selector) => {
+          const active = selector.dataset.animal === key;
+          selector.setAttribute('aria-pressed', String(active));
+          selector.classList.toggle('ring-4', active);
+          selector.classList.toggle('ring-emerald-700', active);
+          selector.classList.toggle('ring-2', !active);
+          selector.classList.toggle('ring-ink/15', !active);
+        });
+      }
 
       function playDuck(event) {
         // Interrompe a reprodução atual e reinicia o som do começo.
@@ -88,7 +148,8 @@
         });
 
         plays += 1;
-        counter.textContent = plays === 1 ? '1 grasnada' : `${plays} grasnadas`;
+        const animal = animals[selectedAnimal];
+        counter.textContent = plays === 1 ? `1 ${animal.singular}` : `${plays} ${animal.plural}`;
 
         const rect = button.getBoundingClientRect();
         const x = (event.clientX || rect.left + rect.width / 2) - rect.left;
@@ -102,6 +163,9 @@
       }
 
       button.addEventListener('click', playDuck);
+      selectors.forEach((selector) => {
+        selector.addEventListener('click', () => selectAnimal(selector.dataset.animal));
+      });
     </script>
   </body>
 </html>
