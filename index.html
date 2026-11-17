@@ -42,7 +42,7 @@
       <section class="relative z-10 flex w-full max-w-xl flex-col items-center text-center">
         <p class="mb-4 text-xs font-bold uppercase tracking-[0.35em] text-ink/55 sm:text-sm">Aperte sem moderação</p>
         <h1 class="font-display text-4xl uppercase leading-none sm:text-6xl">Botão Marreco</h1>
-        <p class="mt-4 max-w-sm text-sm font-medium text-ink/60 sm:text-base">Cada toque solta um novo marreco. Sim, eles podem falar todos ao mesmo tempo.</p>
+        <p class="mt-4 max-w-sm text-sm font-medium text-ink/60 sm:text-base">Cada toque solta um novo marreco e corta a grasnada anterior.</p>
 
         <button
           id="duckButton"
@@ -72,11 +72,14 @@
       const counter = document.querySelector('#counter');
       const rippleLayer = document.querySelector('#rippleLayer');
       const soundUrl = './assets/marreco.mp3';
+      const audio = new Audio(soundUrl);
+      audio.preload = 'auto';
       let plays = 0;
 
-      // Um novo objeto Audio por toque permite que os sons se sobreponham.
       function playDuck(event) {
-        const audio = new Audio(soundUrl);
+        // Interrompe a reprodução atual e reinicia o som do começo.
+        audio.pause();
+        audio.currentTime = 0;
         audio.volume = 1;
         audio.play().catch(() => {
           counter.textContent = 'Toque novamente para liberar o som';

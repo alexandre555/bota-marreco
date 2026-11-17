@@ -1,6 +1,6 @@
 # Botão Marreco
 
-App estático responsivo com HTML e Tailwind CSS. Cada clique cria uma nova instância de áudio, permitindo reproduções simultâneas.
+App estático responsivo com HTML e Tailwind CSS. Cada clique interrompe a reprodução atual e reinicia o som do começo.
 
 ## Rodar localmente
 
