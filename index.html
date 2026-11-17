@@ -40,28 +40,42 @@
       <div class="pointer-events-none absolute bottom-[-10rem] right-[-7rem] h-96 w-96 rounded-full bg-emerald-700/20 blur-3xl"></div>
 
       <section class="relative z-10 mx-auto h-full w-full max-w-xl text-center">
-        <nav class="absolute inset-x-0 top-[max(.75rem,env(safe-area-inset-top))] flex justify-center gap-1.5 sm:gap-2" aria-label="Escolha um animal">
-          <button type="button" data-animal="gaivota" aria-label="Selecionar gaivota" aria-pressed="true" class="animal-selector relative h-11 w-11 overflow-hidden rounded-full border-2 border-white shadow-md ring-4 ring-emerald-700 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink min-[380px]:h-12 min-[380px]:w-12 sm:h-14 sm:w-14">
-            <img src="./assets/animals/gaivota.jpg" alt="Gaivota" class="h-full w-full object-cover" />
+        <nav class="absolute left-1/2 top-[max(.75rem,env(safe-area-inset-top))] grid -translate-x-1/2 grid-cols-5 gap-1 min-[380px]:gap-1.5 sm:gap-2" aria-label="Escolha um animal">
+          <button type="button" data-animal="gaivota" aria-label="Selecionar gaivota" aria-pressed="true" class="animal-selector relative h-8 w-8 rounded-full border-2 border-white shadow-md ring-4 ring-emerald-700 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink min-[380px]:h-10 min-[380px]:w-10 sm:h-14 sm:w-14">
+            <img src="./assets/animals/gaivota.jpg" alt="Gaivota" class="h-full w-full rounded-full object-cover" />
+            <span data-count-for="gaivota" class="sound-count absolute -right-1 -top-1 z-20 hidden min-w-4 rounded-full bg-ink px-1 text-[9px] font-bold leading-4 text-white">0</span>
           </button>
-          <button type="button" data-animal="cabra" aria-label="Selecionar cabra" aria-pressed="false" class="animal-selector relative h-11 w-11 overflow-hidden rounded-full border-2 border-white shadow-md ring-2 ring-ink/15 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink min-[380px]:h-12 min-[380px]:w-12 sm:h-14 sm:w-14">
-            <img src="./assets/animals/cabra.jpg" alt="Cabra" class="h-full w-full object-cover" />
+          <button type="button" data-animal="cabra" aria-label="Selecionar cabra" aria-pressed="false" class="animal-selector relative h-8 w-8 rounded-full border-2 border-white shadow-md ring-2 ring-ink/15 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink min-[380px]:h-10 min-[380px]:w-10 sm:h-14 sm:w-14">
+            <img src="./assets/animals/cabra.jpg" alt="Cabra" class="h-full w-full rounded-full object-cover" />
+            <span data-count-for="cabra" class="sound-count absolute -right-1 -top-1 z-20 hidden min-w-4 rounded-full bg-ink px-1 text-[9px] font-bold leading-4 text-white">0</span>
           </button>
-          <button type="button" data-animal="sapo" aria-label="Selecionar sapo" aria-pressed="false" class="animal-selector relative h-11 w-11 overflow-hidden rounded-full border-2 border-white shadow-md ring-2 ring-ink/15 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink min-[380px]:h-12 min-[380px]:w-12 sm:h-14 sm:w-14">
-            <img src="./assets/animals/sapo.jpg" alt="Sapo" class="h-full w-full object-cover" />
+          <button type="button" data-animal="sapo" aria-label="Selecionar sapo" aria-pressed="false" class="animal-selector relative h-8 w-8 rounded-full border-2 border-white shadow-md ring-2 ring-ink/15 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink min-[380px]:h-10 min-[380px]:w-10 sm:h-14 sm:w-14">
+            <img src="./assets/animals/sapo.jpg" alt="Sapo" class="h-full w-full rounded-full object-cover" />
+            <span data-count-for="sapo" class="sound-count absolute -right-1 -top-1 z-20 hidden min-w-4 rounded-full bg-ink px-1 text-[9px] font-bold leading-4 text-white">0</span>
           </button>
-          <button type="button" data-animal="pato" aria-label="Selecionar pato" aria-pressed="false" class="animal-selector relative h-11 w-11 overflow-hidden rounded-full border-2 border-white shadow-md ring-2 ring-ink/15 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink min-[380px]:h-12 min-[380px]:w-12 sm:h-14 sm:w-14">
-            <img src="./assets/animals/pato.jpg" alt="Pato" class="h-full w-full object-cover" />
+          <button type="button" data-animal="pato" aria-label="Selecionar pato" aria-pressed="false" class="animal-selector relative h-8 w-8 rounded-full border-2 border-white shadow-md ring-2 ring-ink/15 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink min-[380px]:h-10 min-[380px]:w-10 sm:h-14 sm:w-14">
+            <img src="./assets/animals/pato.jpg" alt="Pato" class="h-full w-full rounded-full object-cover" />
+            <span data-count-for="pato" class="sound-count absolute -right-1 -top-1 z-20 hidden min-w-4 rounded-full bg-ink px-1 text-[9px] font-bold leading-4 text-white">0</span>
           </button>
-          <button type="button" data-animal="galinha" aria-label="Selecionar galinha" aria-pressed="false" class="animal-selector relative h-11 w-11 overflow-hidden rounded-full border-2 border-white shadow-md ring-2 ring-ink/15 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink min-[380px]:h-12 min-[380px]:w-12 sm:h-14 sm:w-14">
-            <img src="./assets/animals/galinha.jpg" alt="Galinha" class="h-full w-full object-cover" />
+          <button type="button" data-animal="galinha" aria-label="Selecionar galinha" aria-pressed="false" class="animal-selector relative h-8 w-8 rounded-full border-2 border-white shadow-md ring-2 ring-ink/15 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink min-[380px]:h-10 min-[380px]:w-10 sm:h-14 sm:w-14">
+            <img src="./assets/animals/galinha.jpg" alt="Galinha" class="h-full w-full rounded-full object-cover" />
+            <span data-count-for="galinha" class="sound-count absolute -right-1 -top-1 z-20 hidden min-w-4 rounded-full bg-ink px-1 text-[9px] font-bold leading-4 text-white">0</span>
           </button>
-          <button type="button" data-animal="boi" aria-label="Selecionar boi" aria-pressed="false" class="animal-selector relative h-11 w-11 overflow-hidden rounded-full border-2 border-white shadow-md ring-2 ring-ink/15 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink min-[380px]:h-12 min-[380px]:w-12 sm:h-14 sm:w-14">
-            <img src="./assets/animals/vaca.jpg" alt="Boi" class="h-full w-full object-cover" />
+          <button type="button" data-animal="boi" aria-label="Selecionar boi" aria-pressed="false" class="animal-selector relative h-8 w-8 rounded-full border-2 border-white shadow-md ring-2 ring-ink/15 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink min-[380px]:h-10 min-[380px]:w-10 sm:h-14 sm:w-14">
+            <img src="./assets/animals/vaca.jpg" alt="Boi" class="h-full w-full rounded-full object-cover" />
+            <span data-count-for="boi" class="sound-count absolute -right-1 -top-1 z-20 hidden min-w-4 rounded-full bg-ink px-1 text-[9px] font-bold leading-4 text-white">0</span>
+          </button>
+          <button type="button" data-animal="galo" aria-label="Selecionar galo" aria-pressed="false" class="animal-selector relative h-8 w-8 rounded-full border-2 border-white shadow-md ring-2 ring-ink/15 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink min-[380px]:h-10 min-[380px]:w-10 sm:h-14 sm:w-14">
+            <img src="./assets/animals/galo.jpg" alt="Galo" class="h-full w-full rounded-full object-cover" />
+            <span data-count-for="galo" class="sound-count absolute -right-1 -top-1 z-20 hidden min-w-4 rounded-full bg-ink px-1 text-[9px] font-bold leading-4 text-white">0</span>
+          </button>
+          <button type="button" data-animal="grilo" aria-label="Selecionar grilo" aria-pressed="false" class="animal-selector relative h-8 w-8 rounded-full border-2 border-white shadow-md ring-2 ring-ink/15 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink min-[380px]:h-10 min-[380px]:w-10 sm:h-14 sm:w-14">
+            <img src="./assets/animals/grilo.jpg" alt="Grilo" class="h-full w-full rounded-full object-cover" />
+            <span data-count-for="grilo" class="sound-count absolute -right-1 -top-1 z-20 hidden min-w-4 rounded-full bg-ink px-1 text-[9px] font-bold leading-4 text-white">0</span>
           </button>
         </nav>
 
-        <header class="absolute inset-x-0 top-[5rem] sm:top-[5.75rem]">
+        <header class="absolute inset-x-0 top-[5.5rem] min-[380px]:top-[7rem] sm:top-[9rem]">
           <p class="mb-2 text-[10px] font-bold uppercase tracking-[0.35em] text-ink/55 sm:text-xs">Aperte sem moderação</p>
           <h1 id="pageTitle" class="font-display text-3xl uppercase leading-none sm:text-5xl">Botão Gaivota</h1>
           <p id="pageDescription" class="mx-auto mt-2 hidden max-w-sm text-sm font-medium text-ink/60 min-[380px]:block">Cada toque solta um novo grito e corta o som anterior.</p>
@@ -116,6 +130,16 @@
           name: 'Boi', image: './assets/animals/vaca.jpg', audio: './assets/boi.mp3?v=20261117-5',
           label: 'Muuu!', description: 'Cada toque solta um novo mugido e corta o som anterior.',
           ready: 'Pronto para mugir', singular: 'mugido', plural: 'mugidos'
+        },
+        galo: {
+          name: 'Galo', image: './assets/animals/galo.jpg', audio: './assets/galo.mp3?v=20261117-6',
+          label: 'Cocoricó!', description: 'Cada toque solta um novo canto e corta o som anterior.',
+          ready: 'Pronto para cantar', singular: 'canto', plural: 'cantos'
+        },
+        grilo: {
+          name: 'Grilo', image: './assets/animals/grilo.jpg', audio: './assets/grilo.mp3?v=20261117-6',
+          label: 'Cri-cri!', description: 'Cada toque solta um novo cricri e corta o som anterior.',
+          ready: 'Pronto para cricrilar', singular: 'cricri', plural: 'cricris'
         }
       };
 
@@ -127,10 +151,32 @@
       const centerAnimal = document.querySelector('#centerAnimal');
       const soundLabel = document.querySelector('#soundLabel');
       const selectors = document.querySelectorAll('.animal-selector');
+      const countBadges = document.querySelectorAll('.sound-count');
       let selectedAnimal = 'gaivota';
       const audio = new Audio(animals[selectedAnimal].audio);
       audio.preload = 'auto';
       let plays = 0;
+      let soundCounts = {};
+
+      try {
+        soundCounts = JSON.parse(localStorage.getItem('animalSoundCounts') || '{}');
+      } catch {
+        soundCounts = {};
+      }
+
+      function renderSoundCounts() {
+        countBadges.forEach((badge) => {
+          const count = Number(soundCounts[badge.dataset.countFor]) || 0;
+          badge.textContent = count > 999 ? '999+' : String(count);
+          badge.classList.toggle('hidden', count === 0);
+        });
+      }
+
+      function recordSoundPlay(key) {
+        soundCounts[key] = (Number(soundCounts[key]) || 0) + 1;
+        localStorage.setItem('animalSoundCounts', JSON.stringify(soundCounts));
+        renderSoundCounts();
+      }
 
       function selectAnimal(key) {
         selectedAnimal = key;
@@ -145,7 +191,8 @@
         centerAnimal.src = animal.image;
         centerAnimal.alt = animal.name;
         soundLabel.textContent = animal.label;
-        button.setAttribute('aria-label', `Tocar som da ${animal.name.toLowerCase()}`);
+        const article = ['sapo', 'pato', 'boi', 'galo', 'grilo'].includes(key) ? 'do' : 'da';
+        button.setAttribute('aria-label', `Tocar som ${article} ${animal.name.toLowerCase()}`);
         counter.textContent = animal.ready;
 
         selectors.forEach((selector) => {
@@ -170,6 +217,7 @@
         plays += 1;
         const animal = animals[selectedAnimal];
         counter.textContent = plays === 1 ? `1 ${animal.singular}` : `${plays} ${animal.plural}`;
+        recordSoundPlay(selectedAnimal);
 
         const rect = button.getBoundingClientRect();
         const x = (event.clientX || rect.left + rect.width / 2) - rect.left;
@@ -186,6 +234,7 @@
       selectors.forEach((selector) => {
         selector.addEventListener('click', () => selectAnimal(selector.dataset.animal));
       });
+      renderSoundCounts();
     </script>
   </body>
 </html>
