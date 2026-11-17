@@ -40,7 +40,7 @@
       <div class="pointer-events-none absolute bottom-[-10rem] right-[-7rem] h-96 w-96 rounded-full bg-emerald-700/20 blur-3xl"></div>
 
       <section class="relative z-10 mx-auto h-full w-full max-w-xl text-center">
-        <nav class="absolute left-1/2 top-[max(.75rem,env(safe-area-inset-top))] grid -translate-x-1/2 grid-cols-5 gap-1 min-[380px]:gap-1.5 sm:gap-2" aria-label="Escolha um animal">
+        <nav class="absolute left-1/2 top-[max(.75rem,env(safe-area-inset-top))] flex w-44 -translate-x-1/2 flex-wrap justify-center gap-1 min-[380px]:w-56 min-[380px]:gap-1.5 sm:w-[19.5rem] sm:gap-2" aria-label="Escolha um animal">
           <button type="button" data-animal="gaivota" aria-label="Selecionar gaivota" aria-pressed="true" class="animal-selector relative h-8 w-8 rounded-full border-2 border-white shadow-md ring-4 ring-emerald-700 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink min-[380px]:h-10 min-[380px]:w-10 sm:h-14 sm:w-14">
             <img src="./assets/animals/gaivota.jpg" alt="Gaivota" class="h-full w-full rounded-full object-cover" />
             <span data-count-for="gaivota" class="sound-count absolute -right-1 -top-1 z-20 hidden min-w-4 rounded-full bg-ink px-1 text-[9px] font-bold leading-4 text-white">0</span>
@@ -73,6 +73,10 @@
             <img src="./assets/animals/grilo.jpg" alt="Grilo" class="h-full w-full rounded-full object-cover" />
             <span data-count-for="grilo" class="sound-count absolute -right-1 -top-1 z-20 hidden min-w-4 rounded-full bg-ink px-1 text-[9px] font-bold leading-4 text-white">0</span>
           </button>
+          <button type="button" data-animal="tom" aria-label="Selecionar Tom" aria-pressed="false" class="animal-selector relative h-8 w-8 rounded-full border-2 border-white shadow-md ring-2 ring-ink/15 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink min-[380px]:h-10 min-[380px]:w-10 sm:h-14 sm:w-14">
+            <img src="./assets/animals/tom.jpg" alt="Tom" class="h-full w-full rounded-full object-cover" />
+            <span data-count-for="tom" class="sound-count absolute -right-1 -top-1 z-20 hidden min-w-4 rounded-full bg-ink px-1 text-[9px] font-bold leading-4 text-white">0</span>
+          </button>
         </nav>
 
         <header class="absolute inset-x-0 top-[5.5rem] min-[380px]:top-[7rem] sm:top-[9rem]">
@@ -85,7 +89,7 @@
           id="soundButton"
           type="button"
           aria-label="Tocar som da gaivota"
-          class="group absolute left-1/2 top-1/2 grid aspect-square w-[min(58vw,34svh,17rem)] -translate-x-1/2 -translate-y-1/2 touch-manipulation place-items-center overflow-hidden rounded-full border-[10px] border-amber-100 bg-duck shadow-button outline-none transition duration-100 hover:brightness-105 focus-visible:ring-4 focus-visible:ring-emerald-700 focus-visible:ring-offset-4 focus-visible:ring-offset-cream active:translate-y-[calc(-50%+14px)] active:shadow-pressed sm:w-[min(68vw,34svh,17rem)]"
+          class="group absolute left-1/2 top-1/2 grid aspect-square w-[min(58vw,34svh,17rem)] -translate-x-1/2 -translate-y-1/2 touch-pan-y select-none place-items-center overflow-hidden rounded-full border-[10px] border-amber-100 bg-duck shadow-button outline-none transition duration-100 hover:brightness-105 focus-visible:ring-4 focus-visible:ring-emerald-700 focus-visible:ring-offset-4 focus-visible:ring-offset-cream active:translate-y-[calc(-50%+14px)] active:shadow-pressed sm:w-[min(68vw,34svh,17rem)]"
         >
           <span id="rippleLayer" class="pointer-events-none absolute inset-0"></span>
           <img id="centerAnimal" src="./assets/animals/gaivota.jpg" alt="Gaivota" class="relative z-10 aspect-square w-[58%] rounded-full border-4 border-white/70 object-cover shadow-lg transition-transform duration-150 group-hover:rotate-[-3deg] group-active:scale-90" />
@@ -140,6 +144,11 @@
           name: 'Grilo', image: './assets/animals/grilo.jpg', audio: './assets/grilo.mp3?v=20261117-6',
           label: 'Cri-cri!', description: 'Cada toque solta um novo cricri e corta o som anterior.',
           ready: 'Pronto para cricrilar', singular: 'cricri', plural: 'cricris'
+        },
+        tom: {
+          name: 'Tom', image: './assets/animals/tom.jpg', audio: './assets/tom.mp3?v=20261117-7',
+          label: 'Aaaah!', description: 'Cada toque solta um novo grito e corta o som anterior.',
+          ready: 'Pronto para gritar', singular: 'grito', plural: 'gritos'
         }
       };
 
@@ -152,11 +161,14 @@
       const soundLabel = document.querySelector('#soundLabel');
       const selectors = document.querySelectorAll('.animal-selector');
       const countBadges = document.querySelectorAll('.sound-count');
+      const animalOrder = Object.keys(animals);
       let selectedAnimal = 'gaivota';
       const audio = new Audio(animals[selectedAnimal].audio);
       audio.preload = 'auto';
       let plays = 0;
       let soundCounts = {};
+      let pointerStartX = null;
+      let suppressNextClick = false;
 
       try {
         soundCounts = JSON.parse(localStorage.getItem('animalSoundCounts') || '{}');
@@ -191,7 +203,7 @@
         centerAnimal.src = animal.image;
         centerAnimal.alt = animal.name;
         soundLabel.textContent = animal.label;
-        const article = ['sapo', 'pato', 'boi', 'galo', 'grilo'].includes(key) ? 'do' : 'da';
+        const article = ['sapo', 'pato', 'boi', 'galo', 'grilo', 'tom'].includes(key) ? 'do' : 'da';
         button.setAttribute('aria-label', `Tocar som ${article} ${animal.name.toLowerCase()}`);
         counter.textContent = animal.ready;
 
@@ -205,7 +217,18 @@
         });
       }
 
+      function selectAdjacentAnimal(direction) {
+        const currentIndex = animalOrder.indexOf(selectedAnimal);
+        const nextIndex = (currentIndex + direction + animalOrder.length) % animalOrder.length;
+        selectAnimal(animalOrder[nextIndex]);
+      }
+
       function playDuck(event) {
+        if (suppressNextClick) {
+          suppressNextClick = false;
+          return;
+        }
+
         // Interrompe a reprodução atual e reinicia o som do começo.
         audio.pause();
         audio.currentTime = 0;
@@ -233,6 +256,34 @@
       button.addEventListener('click', playDuck);
       selectors.forEach((selector) => {
         selector.addEventListener('click', () => selectAnimal(selector.dataset.animal));
+      });
+
+      button.addEventListener('pointerdown', (event) => {
+        pointerStartX = event.clientX;
+        button.setPointerCapture?.(event.pointerId);
+      });
+
+      button.addEventListener('pointerup', (event) => {
+        if (pointerStartX === null) return;
+        const distance = event.clientX - pointerStartX;
+        pointerStartX = null;
+
+        if (Math.abs(distance) >= 40) {
+          suppressNextClick = true;
+          selectAdjacentAnimal(distance < 0 ? 1 : -1);
+          window.setTimeout(() => { suppressNextClick = false; }, 350);
+        }
+      });
+
+      button.addEventListener('pointercancel', () => {
+        pointerStartX = null;
+      });
+
+      button.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+          event.preventDefault();
+          selectAdjacentAnimal(event.key === 'ArrowRight' ? 1 : -1);
+        }
       });
       renderSoundCounts();
     </script>

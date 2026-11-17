@@ -1,6 +1,6 @@
 # Botão Marreco
 
-App estático responsivo com HTML e Tailwind CSS. Escolha um animal no topo e aperte o botão central para tocar seu som. Cada clique interrompe a reprodução atual e reinicia o áudio do começo.
+App estático responsivo com HTML e Tailwind CSS. Escolha um animal no topo ou deslize horizontalmente sobre o botão central para trocar. Cada clique interrompe a reprodução atual e reinicia o áudio do começo.
 
 ## Rodar localmente
 
@@ -16,4 +16,4 @@ Cada animal possui um contador individual de reproduções salvo no `localStorag
 
 ## Imagens
 
-As fotos de gaivota, pato, sapo, galinha, boi, galo e grilo são imagens de domínio público obtidas no PublicDomainPictures.net ou no Wikimedia Commons. A imagem da cabra foi extraída do vídeo fornecido com o projeto.
+As fotos de gaivota, pato, sapo, galinha, boi, galo, grilo e gato são imagens de domínio público obtidas no PublicDomainPictures.net ou no Wikimedia Commons. A imagem da cabra foi extraída do vídeo fornecido com o projeto.
