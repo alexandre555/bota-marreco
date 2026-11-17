@@ -39,16 +39,18 @@
       <div class="pointer-events-none absolute left-[-8rem] top-[-8rem] h-80 w-80 rounded-full bg-duck/50 blur-3xl"></div>
       <div class="pointer-events-none absolute bottom-[-10rem] right-[-7rem] h-96 w-96 rounded-full bg-emerald-700/20 blur-3xl"></div>
 
-      <section class="relative z-10 flex w-full max-w-xl flex-col items-center text-center">
-        <p class="mb-4 text-xs font-bold uppercase tracking-[0.35em] text-ink/55 sm:text-sm">Aperte sem moderação</p>
-        <h1 class="font-display text-4xl uppercase leading-none sm:text-6xl">Botão Marreco</h1>
-        <p class="mt-4 max-w-sm text-sm font-medium text-ink/60 sm:text-base">Cada toque solta um novo marreco e corta a grasnada anterior.</p>
+      <section class="relative z-10 grid min-h-[calc(100svh-5rem)] w-full max-w-xl grid-rows-[1fr_auto_1fr] place-items-center text-center">
+        <header class="self-end pb-5 sm:pb-8">
+          <p class="mb-3 text-xs font-bold uppercase tracking-[0.35em] text-ink/55 sm:text-sm">Aperte sem moderação</p>
+          <h1 class="font-display text-4xl uppercase leading-none sm:text-6xl">Botão Marreco</h1>
+          <p class="mx-auto mt-3 max-w-sm text-sm font-medium text-ink/60 sm:text-base">Cada toque solta um novo marreco e corta a grasnada anterior.</p>
+        </header>
 
         <button
           id="duckButton"
           type="button"
           aria-label="Tocar som do marreco"
-          class="group relative mt-12 grid aspect-square w-[min(68vw,17rem)] touch-manipulation place-items-center overflow-hidden rounded-full border-[10px] border-amber-100 bg-duck shadow-button outline-none transition duration-100 hover:brightness-105 focus-visible:ring-4 focus-visible:ring-emerald-700 focus-visible:ring-offset-4 focus-visible:ring-offset-cream active:translate-y-[14px] active:shadow-pressed sm:mt-14"
+          class="group relative grid aspect-square w-[min(58vw,17rem)] touch-manipulation place-items-center overflow-hidden rounded-full border-[10px] border-amber-100 bg-duck shadow-button outline-none transition duration-100 hover:brightness-105 focus-visible:ring-4 focus-visible:ring-emerald-700 focus-visible:ring-offset-4 focus-visible:ring-offset-cream active:translate-y-[14px] active:shadow-pressed sm:w-[min(68vw,17rem)]"
         >
           <span id="rippleLayer" class="pointer-events-none absolute inset-0"></span>
           <svg class="relative z-10 w-[54%] transition-transform duration-150 group-hover:rotate-[-4deg] group-active:scale-90" viewBox="0 0 220 190" aria-hidden="true">
@@ -60,7 +62,7 @@
           <span class="relative z-10 mt-[-2rem] font-display text-lg uppercase tracking-[0.18em] sm:text-xl">Quack!</span>
         </button>
 
-        <div class="mt-10 flex items-center gap-3 rounded-full border border-ink/10 bg-white/55 px-4 py-2 text-xs font-bold uppercase tracking-widest text-ink/55 backdrop-blur-sm">
+        <div class="mt-8 flex self-start items-center gap-3 rounded-full border border-ink/10 bg-white/55 px-4 py-2 text-xs font-bold uppercase tracking-widest text-ink/55 backdrop-blur-sm sm:mt-10">
           <span id="statusDot" class="h-2 w-2 rounded-full bg-emerald-600"></span>
           <span id="counter" aria-live="polite">Pronto para grasnar</span>
         </div>
