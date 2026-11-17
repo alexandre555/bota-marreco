@@ -56,9 +56,8 @@
           <button type="button" data-animal="galinha" aria-label="Selecionar galinha" aria-pressed="false" class="animal-selector relative h-11 w-11 overflow-hidden rounded-full border-2 border-white shadow-md ring-2 ring-ink/15 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink min-[380px]:h-12 min-[380px]:w-12 sm:h-14 sm:w-14">
             <img src="./assets/animals/galinha.jpg" alt="Galinha" class="h-full w-full object-cover" />
           </button>
-          <button type="button" disabled aria-label="Boi — em breve" class="relative h-11 w-11 cursor-not-allowed overflow-hidden rounded-full border-2 border-white opacity-45 grayscale shadow-md min-[380px]:h-12 min-[380px]:w-12 sm:h-14 sm:w-14">
+          <button type="button" data-animal="boi" aria-label="Selecionar boi" aria-pressed="false" class="animal-selector relative h-11 w-11 overflow-hidden rounded-full border-2 border-white shadow-md ring-2 ring-ink/15 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink min-[380px]:h-12 min-[380px]:w-12 sm:h-14 sm:w-14">
             <img src="./assets/animals/vaca.jpg" alt="Boi" class="h-full w-full object-cover" />
-            <span class="absolute inset-0 grid place-items-center bg-ink/20 text-sm" aria-hidden="true">🔒</span>
           </button>
         </nav>
 
@@ -112,6 +111,11 @@
           name: 'Galinha', image: './assets/animals/galinha.jpg', audio: './assets/galinha.mp3?v=20261117-4',
           label: 'Có-có!', description: 'Cada toque solta um novo cacarejo e corta o som anterior.',
           ready: 'Pronta para cacarejar', singular: 'cacarejo', plural: 'cacarejos'
+        },
+        boi: {
+          name: 'Boi', image: './assets/animals/vaca.jpg', audio: './assets/boi.mp3?v=20261117-5',
+          label: 'Muuu!', description: 'Cada toque solta um novo mugido e corta o som anterior.',
+          ready: 'Pronto para mugir', singular: 'mugido', plural: 'mugidos'
         }
       };
 
