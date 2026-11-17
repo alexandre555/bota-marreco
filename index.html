@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5c84c" />
+    <meta name="description" content="O botão oficial do marreco." />
+    <title>Botão Marreco</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { display: ['Arial Black', 'Arial', 'sans-serif'] },
+            colors: { ink: '#17231d', duck: '#f5c84c', cream: '#fff7df' },
+            boxShadow: {
+              button: '0 18px 0 #a85e21, 0 28px 50px rgba(32, 25, 12, .25)',
+              pressed: '0 4px 0 #a85e21, 0 10px 22px rgba(32, 25, 12, .18)'
+            }
+          }
+        }
+      };
+    </script>
+    <style>
+      body { -webkit-tap-highlight-color: transparent; }
+      .noise {
+        background-image: radial-gradient(rgba(23,35,29,.11) 1px, transparent 1px);
+        background-size: 18px 18px;
+      }
+      @keyframes ripple { to { transform: scale(2.15); opacity: 0; } }
+      .ripple { animation: ripple .55s ease-out forwards; }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation-duration: .01ms !important; }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen overflow-hidden bg-cream text-ink selection:bg-duck">
+    <main class="noise relative flex min-h-[100svh] items-center justify-center px-5 py-10">
+      <div class="pointer-events-none absolute left-[-8rem] top-[-8rem] h-80 w-80 rounded-full bg-duck/50 blur-3xl"></div>
+      <div class="pointer-events-none absolute bottom-[-10rem] right-[-7rem] h-96 w-96 rounded-full bg-emerald-700/20 blur-3xl"></div>
+
+      <section class="relative z-10 flex w-full max-w-xl flex-col items-center text-center">
+        <p class="mb-4 text-xs font-bold uppercase tracking-[0.35em] text-ink/55 sm:text-sm">Aperte sem moderação</p>
+        <h1 class="font-display text-4xl uppercase leading-none sm:text-6xl">Botão Marreco</h1>
+        <p class="mt-4 max-w-sm text-sm font-medium text-ink/60 sm:text-base">Cada toque solta um novo marreco. Sim, eles podem falar todos ao mesmo tempo.</p>
+
+        <button
+          id="duckButton"
+          type="button"
+          aria-label="Tocar som do marreco"
+          class="group relative mt-12 grid aspect-square w-[min(68vw,17rem)] touch-manipulation place-items-center overflow-hidden rounded-full border-[10px] border-amber-100 bg-duck shadow-button outline-none transition duration-100 hover:brightness-105 focus-visible:ring-4 focus-visible:ring-emerald-700 focus-visible:ring-offset-4 focus-visible:ring-offset-cream active:translate-y-[14px] active:shadow-pressed sm:mt-14"
+        >
+          <span id="rippleLayer" class="pointer-events-none absolute inset-0"></span>
+          <svg class="relative z-10 w-[54%] transition-transform duration-150 group-hover:rotate-[-4deg] group-active:scale-90" viewBox="0 0 220 190" aria-hidden="true">
+            <path d="M35 109c0-43 35-77 78-77 22 0 42 9 56 23 5 5 10 7 18 7h14l-14 13 14 13h-27c-10 0-16 3-21 10-14 21-38 35-65 35-30 0-53-9-53-24z" fill="#fff7df" stroke="#17231d" stroke-width="9" stroke-linejoin="round"/>
+            <path d="M47 116c16 0 21 12 40 12 22 0 31-13 49-13" fill="none" stroke="#17231d" stroke-width="8" stroke-linecap="round"/>
+            <circle cx="137" cy="62" r="7" fill="#17231d"/>
+            <path d="M174 62h27l-14 13 14 13h-27z" fill="#e8732a" stroke="#17231d" stroke-width="7" stroke-linejoin="round"/>
+          </svg>
+          <span class="relative z-10 mt-[-2rem] font-display text-lg uppercase tracking-[0.18em] sm:text-xl">Quack!</span>
+        </button>
+
+        <div class="mt-10 flex items-center gap-3 rounded-full border border-ink/10 bg-white/55 px-4 py-2 text-xs font-bold uppercase tracking-widest text-ink/55 backdrop-blur-sm">
+          <span id="statusDot" class="h-2 w-2 rounded-full bg-emerald-600"></span>
+          <span id="counter" aria-live="polite">Pronto para grasnar</span>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const button = document.querySelector('#duckButton');
+      const counter = document.querySelector('#counter');
+      const rippleLayer = document.querySelector('#rippleLayer');
+      const soundUrl = './assets/marreco.mp3';
+      let plays = 0;
+
+      // Um novo objeto Audio por toque permite que os sons se sobreponham.
+      function playDuck(event) {
+        const audio = new Audio(soundUrl);
+        audio.volume = 1;
+        audio.play().catch(() => {
+          counter.textContent = 'Toque novamente para liberar o som';
+        });
+
+        plays += 1;
+        counter.textContent = plays === 1 ? '1 grasnada' : `${plays} grasnadas`;
+
+        const rect = button.getBoundingClientRect();
+        const x = (event.clientX || rect.left + rect.width / 2) - rect.left;
+        const y = (event.clientY || rect.top + rect.height / 2) - rect.top;
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple absolute h-24 w-24 rounded-full bg-white/60';
+        ripple.style.left = `${x - 48}px`;
+        ripple.style.top = `${y - 48}px`;
+        rippleLayer.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove());
+      }
+
+      button.addEventListener('click', playDuck);
+    </script>
+  </body>
+</html>
