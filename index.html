@@ -27,7 +27,10 @@
         background-image: radial-gradient(rgba(23,35,29,.11) 1px, transparent 1px);
         background-size: 18px 18px;
       }
-      @keyframes ripple { to { transform: scale(2.15); opacity: 0; } }
+      @keyframes ripple {
+        from { transform: scale(.35); opacity: 1; }
+        to { transform: scale(2.15); opacity: 0; }
+      }
       .ripple { animation: ripple .55s ease-out forwards; }
       @media (prefers-reduced-motion: reduce) {
         *, *::before, *::after { animation-duration: .01ms !important; }
@@ -91,7 +94,7 @@
           aria-label="Tocar som da gaivota"
           class="group absolute left-1/2 top-1/2 grid aspect-square w-[min(58vw,34svh,17rem)] -translate-x-1/2 -translate-y-1/2 touch-pan-y select-none place-items-center overflow-hidden rounded-full border-[10px] border-amber-100 bg-duck shadow-button outline-none transition duration-100 hover:brightness-105 focus-visible:ring-4 focus-visible:ring-emerald-700 focus-visible:ring-offset-4 focus-visible:ring-offset-cream active:translate-y-[calc(-50%+14px)] active:shadow-pressed sm:w-[min(68vw,34svh,17rem)]"
         >
-          <span id="rippleLayer" class="pointer-events-none absolute inset-0"></span>
+          <span id="ripple" class="pointer-events-none absolute h-24 w-24 rounded-full bg-white/60 opacity-0"></span>
           <img id="centerAnimal" src="./assets/animals/gaivota.jpg" alt="Gaivota" class="relative z-10 aspect-square w-[58%] rounded-full border-4 border-white/70 object-cover shadow-lg transition-transform duration-150 group-hover:rotate-[-3deg] group-active:scale-90" />
           <span id="soundLabel" class="relative z-10 mt-[-1.5rem] font-display text-lg uppercase tracking-[0.18em] sm:text-xl">Kriá!</span>
         </button>
@@ -154,13 +157,16 @@
 
       const button = document.querySelector('#soundButton');
       const counter = document.querySelector('#counter');
-      const rippleLayer = document.querySelector('#rippleLayer');
+      const ripple = document.querySelector('#ripple');
       const pageTitle = document.querySelector('#pageTitle');
       const pageDescription = document.querySelector('#pageDescription');
       const centerAnimal = document.querySelector('#centerAnimal');
       const soundLabel = document.querySelector('#soundLabel');
       const selectors = document.querySelectorAll('.animal-selector');
       const countBadges = document.querySelectorAll('.sound-count');
+      const countBadgesByAnimal = new Map(
+        [...countBadges].map((badge) => [badge.dataset.countFor, badge])
+      );
       const animalOrder = Object.keys(animals);
       let selectedAnimal = 'gaivota';
       const audio = new Audio(animals[selectedAnimal].audio);
@@ -169,6 +175,8 @@
       let soundCounts = {};
       let pointerStartX = null;
       let suppressNextClick = false;
+      let suppressClickTimer = null;
+      let storageWriteTimer = null;
 
       try {
         soundCounts = JSON.parse(localStorage.getItem('animalSoundCounts') || '{}');
@@ -176,21 +184,36 @@
         soundCounts = {};
       }
 
-      function renderSoundCounts() {
-        countBadges.forEach((badge) => {
-          const count = Number(soundCounts[badge.dataset.countFor]) || 0;
-          badge.textContent = count > 999 ? '999+' : String(count);
-          badge.classList.toggle('hidden', count === 0);
-        });
+      function renderSoundCount(key) {
+        const badge = countBadgesByAnimal.get(key);
+        if (!badge) return;
+        const count = Number(soundCounts[key]) || 0;
+        badge.textContent = count > 999 ? '999+' : String(count);
+        badge.classList.toggle('hidden', count === 0);
+      }
+
+      function persistSoundCounts() {
+        if (storageWriteTimer) {
+          window.clearTimeout(storageWriteTimer);
+          storageWriteTimer = null;
+        }
+
+        try {
+          localStorage.setItem('animalSoundCounts', JSON.stringify(soundCounts));
+        } catch {
+          // O app continua funcionando quando o armazenamento está indisponível.
+        }
       }
 
       function recordSoundPlay(key) {
         soundCounts[key] = (Number(soundCounts[key]) || 0) + 1;
-        localStorage.setItem('animalSoundCounts', JSON.stringify(soundCounts));
-        renderSoundCounts();
+        renderSoundCount(key);
+        window.clearTimeout(storageWriteTimer);
+        storageWriteTimer = window.setTimeout(persistSoundCounts, 250);
       }
 
       function selectAnimal(key) {
+        if (key === selectedAnimal) return;
         selectedAnimal = key;
         const animal = animals[key];
         audio.pause();
@@ -245,12 +268,11 @@
         const rect = button.getBoundingClientRect();
         const x = (event.clientX || rect.left + rect.width / 2) - rect.left;
         const y = (event.clientY || rect.top + rect.height / 2) - rect.top;
-        const ripple = document.createElement('span');
-        ripple.className = 'ripple absolute h-24 w-24 rounded-full bg-white/60';
         ripple.style.left = `${x - 48}px`;
         ripple.style.top = `${y - 48}px`;
-        rippleLayer.appendChild(ripple);
-        ripple.addEventListener('animationend', () => ripple.remove());
+        ripple.classList.remove('ripple');
+        void ripple.offsetWidth;
+        ripple.classList.add('ripple');
       }
 
       button.addEventListener('click', playDuck);
@@ -271,7 +293,11 @@
         if (Math.abs(distance) >= 40) {
           suppressNextClick = true;
           selectAdjacentAnimal(distance < 0 ? 1 : -1);
-          window.setTimeout(() => { suppressNextClick = false; }, 350);
+          window.clearTimeout(suppressClickTimer);
+          suppressClickTimer = window.setTimeout(() => {
+            suppressNextClick = false;
+            suppressClickTimer = null;
+          }, 350);
         }
       });
 
@@ -285,7 +311,8 @@
           selectAdjacentAnimal(event.key === 'ArrowRight' ? 1 : -1);
         }
       });
-      renderSoundCounts();
+      window.addEventListener('pagehide', persistSoundCounts, { passive: true });
+      countBadges.forEach((badge) => renderSoundCount(badge.dataset.countFor));
     </script>
   </body>
 </html>
