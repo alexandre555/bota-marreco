@@ -47,9 +47,8 @@
           <button type="button" data-animal="cabra" aria-label="Selecionar cabra" aria-pressed="false" class="animal-selector relative h-12 w-12 overflow-hidden rounded-full border-2 border-white shadow-md ring-2 ring-ink/15 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink sm:h-14 sm:w-14">
             <img src="./assets/animals/cabra.jpg" alt="Cabra" class="h-full w-full object-cover" />
           </button>
-          <button type="button" disabled aria-label="Vaca — em breve" class="relative h-12 w-12 cursor-not-allowed overflow-hidden rounded-full border-2 border-white opacity-45 grayscale shadow-md sm:h-14 sm:w-14">
-            <img src="./assets/animals/vaca.jpg" alt="Vaca" class="h-full w-full object-cover" />
-            <span class="absolute inset-0 grid place-items-center bg-ink/20 text-sm" aria-hidden="true">🔒</span>
+          <button type="button" data-animal="sapo" aria-label="Selecionar sapo" aria-pressed="false" class="animal-selector relative h-12 w-12 overflow-hidden rounded-full border-2 border-white shadow-md ring-2 ring-ink/15 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink sm:h-14 sm:w-14">
+            <img src="./assets/animals/sapo.jpg" alt="Sapo" class="h-full w-full object-cover" />
           </button>
           <button type="button" disabled aria-label="Porco — em breve" class="relative h-12 w-12 cursor-not-allowed overflow-hidden rounded-full border-2 border-white opacity-45 grayscale shadow-md sm:h-14 sm:w-14">
             <img src="./assets/animals/porco.jpg" alt="Porco" class="h-full w-full object-cover" />
@@ -88,14 +87,19 @@
     <script>
       const animals = {
         marreco: {
-          name: 'Marreco', image: './assets/animals/marreco.jpg', audio: './assets/marreco.mp3',
+          name: 'Marreco', image: './assets/animals/marreco.jpg', audio: './assets/marreco.mp3?v=20261117-2',
           label: 'Quack!', description: 'Cada toque solta um novo marreco e corta a grasnada anterior.',
           ready: 'Pronto para grasnar', singular: 'grasnada', plural: 'grasnadas'
         },
         cabra: {
-          name: 'Cabra', image: './assets/animals/cabra.jpg', audio: './assets/cabra-v2.mp3',
+          name: 'Cabra', image: './assets/animals/cabra.jpg', audio: './assets/cabra.mp3?v=20261117-2',
           label: 'Mééé!', description: 'Cada toque solta um novo grito e corta o berro anterior.',
           ready: 'Pronta para berrar', singular: 'berro', plural: 'berros'
+        },
+        sapo: {
+          name: 'Sapo', image: './assets/animals/sapo.jpg', audio: './assets/sapo.mp3?v=20261117-2',
+          label: 'Croac!', description: 'Cada toque solta um novo coaxo e corta o som anterior.',
+          ready: 'Pronto para coaxar', singular: 'coaxo', plural: 'coaxos'
         }
       };
 
